@@ -1,0 +1,38 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span class="app-title">Welcome to {{ title }}!</span>
+    <span class="fill-remaining-space"></span>
+    <span>Questions: {{curIdx + 1}} / {{cards.length}}</span>
+    <!-- <span>question: {{curQusIdx$ | async}} / {{cards.length}}</span> -->
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="flashcard-wrapper">
+  <!-- <button (click)="randomCards()">RANDOM</button> -->
+  <div class="card-container">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>{{isShowQuestion ? "Question" : "Answer"}} for Q{{cards[curIdx].index}}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content (click)="showAnswer()">
+        <div [class] = "isShowQuestion ? 'question-wrapper' : 'answer-wrapper' ">
+          <h3 [class]="isShowQuestion ? 'card-question' : 'card-question hidden'">
+           <p>Question: </p>
+           {{cards[curIdx].question}}
+          </h3>
+          <h3 [class]="isShowQuestion ? 'card-answer hidden' : 'card-answer'">
+            {{cards[curIdx].answer}}
+          </h3>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button  (click)="restartApp()">Restart</button>
+        <button mat-button *ngIf="curIdx < cards.length - 1" (click)="nextQuestion()">Next</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+
+<router-outlet></router-outlet>
